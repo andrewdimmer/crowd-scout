@@ -1,5 +1,6 @@
 import 'package:crowd_scout/elements/PoiNameBar.dart';
 import 'package:crowd_scout/elements/MapPoint.dart';
+import 'package:crowd_scout/elements/poiCapacityBar.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:crowd_scout/widgets/SearchPage.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,8 @@ class _MapPage extends State<MapPage> {
           poiMapPoint: _poi,
           onClose: () => _setPoi(null),
         ),
-      mapPageBody.add(Text("POI Info"));
+      );
+      mapPageBody.add(PoiCapacityBar(poiMapPoint: _poi));
     }
     return mapPageBody;
   }
