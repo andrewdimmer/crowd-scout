@@ -1,27 +1,33 @@
+import 'package:crowd_scout/elements/MapPoint.dart';
+import 'package:crowd_scout/elements/PoiSearchResultItem.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key key, this.title, this.initialSearchString}) : super(key: key);
+  SearchPage({Key key, this.title, this.initialSearchString, this.setPoi})
+      : super(key: key);
 
   final String title;
   final String initialSearchString;
+  final Function setPoi;
 
   @override
   State<StatefulWidget> createState() {
-    return _SearchPage(initialSearchString);
+    return _SearchPage(initialSearchString, setPoi);
   }
 }
 
 class _SearchPage extends State<SearchPage> {
-  _SearchPage(String initialSearchString) {
+  _SearchPage(String initialSearchString, Function setPoi) {
     _initialSearchString = initialSearchString;
     _search(initialSearchString, true);
+    _setPoi = setPoi;
   }
 
   String _initialSearchString;
   bool _busySearching = true;
   List<Widget> _searchResults = [];
+  Function _setPoi;
 
   void _resetSearchBox() {
     setState(() {
@@ -37,20 +43,35 @@ class _SearchPage extends State<SearchPage> {
       });
     }
     // Run Async Function Here
-    Future<List<Widget>> results = Future.delayed(
+    Future<List<MapPoint>> results = Future.delayed(
         Duration(seconds: 2),
         () => [
-              Center(child: Text("Results")),
-              Text(input + " " + 1.toString() + "TEST______"),
-              Text(input + " " + 2.toString()),
-              Text(input + " " + 3.toString())
+              MapPoint(
+                name: input + " " + 1.toString(),
+                address: input + ", City, State 0000" + 1.toString(),
+              ),
+              MapPoint(
+                name: input + " " + 2.toString(),
+                address: input + ", City, State 0000" + 2.toString(),
+              ),
+              MapPoint(
+                name: input + " " + 3.toString(),
+                address: input + ", City, State 0000" + 3.toString(),
+              ),
             ]);
     setSearchResults(await results);
   }
 
-  void setSearchResults(List<Widget> results) {
+  void setSearchResults(List<MapPoint> results) {
+    List<Widget> newSearchResults = [Center(child: Text("Results"))];
+    newSearchResults.addAll(
+      results.map(
+        (mapPoint) =>
+            PoiSearchResultItem(poiMapPoint: mapPoint, setPoi: _setPoi),
+      ),
+    );
     setState(() {
-      _searchResults = results;
+      _searchResults = newSearchResults;
       _busySearching = false;
     });
   }
