@@ -9,24 +9,20 @@ class PoiSearchResultItem extends StatelessWidget {
   final MapPoint poiMapPoint;
   final Function setPoi;
 
-  Function _onTapFactory(context) {
-    return () {
-      setPoi(poiMapPoint);
-      Navigator.pop(context);
-    };
-  }
+  Function _onTapFactory(context) => () {
+        setPoi(poiMapPoint);
+        Navigator.pop(context);
+      };
 
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Card(
-        child: Column(
-          children: <Widget>[
-            Text(poiMapPoint.name),
-            Text(poiMapPoint.address),
-          ],
+  Widget build(BuildContext context) => GestureDetector(
+        child: Card(
+          child: Column(
+            children: <Widget>[
+              Text(poiMapPoint.name),
+              Text(poiMapPoint.address),
+            ],
+          ),
         ),
-      ),
-      onTap: _onTapFactory(context),
-    );
-  }
+        onTap: _onTapFactory(context),
+      );
 }
