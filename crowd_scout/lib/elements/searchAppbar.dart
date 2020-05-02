@@ -16,31 +16,26 @@ AppBar searchAppBar({
               controller: TextEditingController(text: defaultSearchString),
               cursorColor: Colors.white,
               decoration: InputDecoration(
-                hintText: "Search",
-                hintStyle: TextStyle(color: Colors.white),
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-              ),
+                  hintText: "Search",
+                  hintStyle: TextStyle(color: Colors.white),
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.white)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.white))),
               style: TextStyle(
                 color: Colors.white,
                 decorationColor: Colors.white,
               ),
-              onSubmitted: onSearch,
-            )
+              onSubmitted: onSearch)
           : Text(title),
       actions: <Widget>[
         IconButton(
-          icon: searching ? Icon(Icons.clear) : Icon(Icons.search),
-          tooltip: searching ? "Cancel Search" : "Search",
-          onPressed: toggleSearch,
-        ),
+            icon: searching ? Icon(Icons.clear) : Icon(Icons.search),
+            tooltip: searching ? "Cancel Search" : "Search",
+            onPressed: toggleSearch)
       ],
     );
