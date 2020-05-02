@@ -1,5 +1,5 @@
+import 'package:crowd_scout/widgets/MapPage.dart';
 import 'package:flutter/material.dart';
-import 'widgets/MyHomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MyHomePage(title: 'Crowd Scout Home Page'),
+      home: MapPage(title: 'Crowd Scout'),
     );
   }
 }
