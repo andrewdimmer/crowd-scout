@@ -32,15 +32,20 @@ class _MapPage extends State<MapPage> {
       });
 
   List<Widget> _generateMapPageBody() {
-    List<Widget> mapPageBody = [Text("Map")];
+    List<Widget> mapPageBody = [
+      Container(
+        child: Expanded(
+          child: Text("Map"),
+        ),
+      )
+    ];
     if (_poi != null) {
       mapPageBody.insert(
-          0,
-          PoiNameBar(
-            poiName: _poi.name,
-            poiAddress: _poi.address,
-            onClose: () => _setPoi(null),
-          ));
+        0,
+        PoiNameBar(
+          poiMapPoint: _poi,
+          onClose: () => _setPoi(null),
+        ),
       mapPageBody.add(Text("POI Info"));
     }
     return mapPageBody;
