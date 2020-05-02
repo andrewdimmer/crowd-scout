@@ -22,18 +22,14 @@ class _MapPage extends State<MapPage> {
   MapPoint _poi =
       MapPoint(lat: 0, long: 0, name: "Test Name", address: "Test Address");
 
-  void _toggleSearch() {
-    setState(() {
-      _searching = !_searching;
-    });
-  }
+  void _toggleSearch() => setState(() {
+        _searching = !_searching;
+      });
 
-  void _setPoi(newPoi) {
-    setState(() {
-      _poi = newPoi;
-      //_mapCenter = MapPoint(lat: _userLocation.lat, long: _userLocation.long);
-    });
-  }
+  void _setPoi(newPoi) => setState(() {
+        _poi = newPoi;
+        //_mapCenter = MapPoint(lat: _userLocation.lat, long: _userLocation.long);
+      });
 
   List<Widget> _generateMapPageBody() {
     List<Widget> mapPageBody = [Text("Map")];
@@ -64,18 +60,16 @@ class _MapPage extends State<MapPage> {
       };
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: searchAppBar(
-        title: widget.title,
-        searching: this._searching,
-        toggleSearch: this._toggleSearch,
-        autofocus: true,
-        onSearch: _onSearchFactory(context),
-      ),
-      body: Column(
-        children: _generateMapPageBody(),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: searchAppBar(
+          title: widget.title,
+          searching: this._searching,
+          toggleSearch: this._toggleSearch,
+          autofocus: true,
+          onSearch: _onSearchFactory(context),
+        ),
+        body: Column(
+          children: _generateMapPageBody(),
+        ),
+      );
 }

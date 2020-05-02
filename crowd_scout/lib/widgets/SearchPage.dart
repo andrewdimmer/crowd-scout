@@ -12,9 +12,8 @@ class SearchPage extends StatefulWidget {
   final Function setPoi;
 
   @override
-  State<StatefulWidget> createState() {
-    return _SearchPage(initialSearchString, setPoi);
-  }
+  State<StatefulWidget> createState() =>
+      _SearchPage(initialSearchString, setPoi);
 }
 
 class _SearchPage extends State<SearchPage> {
@@ -29,11 +28,9 @@ class _SearchPage extends State<SearchPage> {
   List<Widget> _searchResults = [];
   Function _setPoi;
 
-  void _resetSearchBox() {
-    setState(() {
-      _initialSearchString = "";
-    });
-  }
+  void _resetSearchBox() => setState(() {
+        _initialSearchString = "";
+      });
 
   Future<void> _search(String input, [bool initialLoad = false]) async {
     if (!initialLoad) {
@@ -77,25 +74,23 @@ class _SearchPage extends State<SearchPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: searchAppBar(
-          title: widget.title,
-          toggleSearch: _resetSearchBox,
-          onSearch: (string) => _search(string),
-          defaultSearchString: _initialSearchString),
-      body: _busySearching
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                  CircularProgressIndicator(),
-                  Center(child: Text("Searching..."))
-                ])
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: _searchResults,
-            ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: searchAppBar(
+            title: widget.title,
+            toggleSearch: _resetSearchBox,
+            onSearch: (string) => _search(string),
+            defaultSearchString: _initialSearchString),
+        body: _busySearching
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                    CircularProgressIndicator(),
+                    Center(child: Text("Searching..."))
+                  ])
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: _searchResults,
+              ),
+      );
 }
