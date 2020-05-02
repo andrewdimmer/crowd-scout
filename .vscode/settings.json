@@ -1,0 +1,37 @@
+{
+  "editor.formatOnSave": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "todo-tree.highlights.customHighlight": {
+    "WTF": {
+      "foreground": "#FFFFFF",
+      "background": "#7700CC",
+      "iconColour": "#AA00FF",
+      "rulerColour": "#AA00FF",
+      "icon": "squirrel"
+    },
+    "FIXME": {
+      "foreground": "#000000",
+      "background": "#FF0000",
+      "iconColour": "#FF0000",
+      "rulerColour": "#FF0000",
+      "icon": "flame"
+    },
+    "TODO": {
+      "foreground": "#000000",
+      "background": "#FFFF00",
+      "iconColour": "#FFFF00",
+      "rulerColour": "#FFFF00",
+      "icon": "pin"
+    },
+    "MAYBE": {
+      "foreground": "#000000",
+      "background": "#0099FF",
+      "iconColour": "#0099FF",
+      "rulerColour": "#0099FF",
+      "icon": "beaker"
+    }
+  },
+  "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|/* |^)\\s*($TAGS)|^\\s*- \\[ \\])",
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.general.tags": ["WTF", "FIXME", "TODO", "MAYBE"]
+}
