@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "coenraads.bracket-pair-colorizer",
+    "eamodio.gitlens",
+    "gruntfuggly.todo-tree",
+    "mikestead.dotenv",
+    "dart-code.flutter",
+    "dart-code.dart-code"
+  ]
+}
