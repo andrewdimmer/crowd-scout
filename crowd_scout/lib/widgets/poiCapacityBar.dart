@@ -16,34 +16,28 @@ class PoiCapacityBar extends StatefulWidget {
 class _PoiCapacityBar extends State<PoiCapacityBar> {
   _PoiCapacityBar(GoogleMapsPoi poiInfo) {
     _poiInfo = poiInfo;
-    _getCrowdInformation(true);
-    Firestore.instance.collection("PLACEHOLDER").getDocuments().then((value) =>
-        print("Firestore Test Successful: " + value.documents.toString()));
+    var snapshots = Firestore.instance
+        .collection("places")
+        .document(poiInfo.placeId)
+        .snapshots();
+    snapshots.listen(_processNewCrowdAndCapacityData);
   }
 
   GoogleMapsPoi _poiInfo;
   bool _busyLoading = true;
   int _crowd;
-  int _capacity;
+  String _capacity;
 
-  Future<void> _getCrowdInformation([bool initialLoad = false]) async {
-    if (!initialLoad) {
-      setState(() {
-        _busyLoading = true;
-      });
-    }
-    // Run Async Function Here
-    Future.delayed(
-        Duration(seconds: 2),
-        () => setState(() {
-              _crowd = 7;
-              _capacity = 10;
-              _busyLoading = false;
-            }));
+  void _processNewCrowdAndCapacityData(DocumentSnapshot snapshot) {
+    setState(() {
+      _busyLoading = false;
+      _crowd = snapshot.exists ? snapshot.data["crowd"] : 0;
+      _capacity = snapshot.exists ? snapshot.data["capacity"] : "?";
+    });
   }
 
   void _updateLocalCapacity(String newCapacity) => setState(() {
-        _capacity = int.parse(newCapacity);
+        _capacity = newCapacity;
       });
 
   void openUpdateCapacity() => Navigator.push(
@@ -63,8 +57,7 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
             : Column(
                 children: <Widget>[
                   Center(
-                    child:
-                        Text(_crowd.toString() + " / " + _capacity.toString()),
+                    child: Text(_crowd.toString() + " / " + _capacity),
                   ),
                   ButtonBar(
                     children: <Widget>[
