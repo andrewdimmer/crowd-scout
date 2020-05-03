@@ -24,13 +24,12 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
   }
 
   GoogleMapsPoi _poiInfo;
-  bool _busyLoading = true;
-  int _crowd;
-  String _capacity;
+  bool _busyLoading = false;
+  int _crowd = 0;
+  String _capacity = "?";
 
   void _processNewCrowdAndCapacityData(DocumentSnapshot snapshot) {
     setState(() {
-      _busyLoading = false;
       _crowd = snapshot.exists ? snapshot.data["crowd"] : 0;
       _capacity = snapshot.exists ? snapshot.data["capacity"] : "?";
     });
@@ -52,7 +51,8 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
             : Column(
                 children: <Widget>[
                   Center(
-                    child: Text(_crowd.toString() + " / " + _capacity),
+                    child: Text(_crowd.toString() + " / " + _capacity,
+                        style: TextStyle(fontSize: 24)),
                   ),
                   ButtonBar(
                     children: <Widget>[
@@ -67,6 +67,7 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
                   )
                 ],
               ),
+        padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(color: Theme.of(context).primaryColorLight),
       );
 }

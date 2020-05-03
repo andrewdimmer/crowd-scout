@@ -10,6 +10,7 @@ import 'package:crowd_scout/widgets/poiCapacityBar.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class MapPage extends StatefulWidget {
   MapPage({Key key, this.title}) : super(key: key);
@@ -138,6 +139,12 @@ class _MapPage extends State<MapPage> {
       _userLocation = userPosition;
     });
     _renderMapWidget();
+    http.post(
+        "https://us-central1-tohacks2020-gcp.cloudfunctions.net/update_crowd",
+        body: userPosition.latitude.toString() +
+            ";" +
+            userPosition.longitude.toString() +
+            ";150");
   }
 
   @override

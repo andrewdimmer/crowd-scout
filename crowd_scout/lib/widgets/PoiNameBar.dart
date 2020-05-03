@@ -13,8 +13,9 @@ class PoiNameBar extends StatelessWidget {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  Text(poiInfo.name),
-                  Text(poiInfo.formattedAddress)
+                  Text(poiInfo.name, style: TextStyle(fontSize: 24.0)),
+                  Text(poiInfo.formattedAddress,
+                      style: TextStyle(fontSize: 16.0))
                 ],
               ),
             ),
@@ -26,5 +27,6 @@ class PoiNameBar extends StatelessWidget {
           ],
         ),
         decoration: BoxDecoration(color: Theme.of(context).primaryColorLight),
+        padding: EdgeInsets.all(8.0),
       );
 }

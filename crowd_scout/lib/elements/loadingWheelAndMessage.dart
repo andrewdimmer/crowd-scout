@@ -6,7 +6,10 @@ Widget loadingWheelAndMessage(String message) => Column(
       children: [
         CircularProgressIndicator(),
         Center(
-          child: Text(message),
+          child: Text(
+            message,
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
       ],
     );
