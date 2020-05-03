@@ -1,5 +1,5 @@
 import 'package:crowd_scout/elements/MapPoint.dart';
-import 'package:crowd_scout/elements/PoiSearchResultItem.dart';
+import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:crowd_scout/widgets/PoiSearchResultItem.dart';
 import 'package:flutter/material.dart';
@@ -84,13 +84,7 @@ class _SearchPage extends State<SearchPage> {
             onSearch: (string) => _search(string),
             defaultSearchString: _initialSearchString),
         body: _busySearching
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                    CircularProgressIndicator(),
-                    Center(child: Text("Searching..."))
-                  ])
+            ? loadingWheelAndMessage("Searching...")
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: _searchResults,

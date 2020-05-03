@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crowd_scout/elements/MapPoint.dart';
+import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:crowd_scout/widgets/ChangeCapacityPage.dart';
 import 'package:flutter/material.dart';
 
@@ -58,13 +59,7 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
   @override
   Widget build(BuildContext context) => Container(
         child: _busyLoading
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                    CircularProgressIndicator(),
-                    Center(child: Text("Loading..."))
-                  ])
+            ? loadingWheelAndMessage("Loading Crowd and Capacity Data...")
             : Column(
                 children: <Widget>[
                   Center(
