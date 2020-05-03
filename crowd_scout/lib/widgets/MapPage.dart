@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:crowd_scout/elements/MapPoint.dart';
-import 'package:crowd_scout/elements/poiCapacityBar.dart';
+import 'package:crowd_scout/elements/getMapIfHasUserLocation.dart';
+import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:crowd_scout/widgets/PoiNameBar.dart';
 import 'package:crowd_scout/widgets/SearchPage.dart';
@@ -24,11 +25,8 @@ class MapPage extends StatefulWidget {
 class _MapPage extends State<MapPage> {
   _MapPage() {
     print("Adding Listener");
-    Geolocator()
-        .getPositionStream(
-          LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10),
-        )
-        .listen(_setUserLocation);
+    _addLocationListener();
+    _renderMapWidget();
   }
 
   bool _searching = false;
@@ -37,6 +35,7 @@ class _MapPage extends State<MapPage> {
   MapPoint _poi;
   // MapPoint(lat: 0, long: 0, name: "Test Name", address: "Test Address");
   Completer<GoogleMapController> _controller;
+  Widget _mapWidget = loadingWheelAndMessage("Initalizing...");
 
   void _toggleSearch() => setState(() {
         _searching = !_searching;
@@ -47,22 +46,40 @@ class _MapPage extends State<MapPage> {
         //_mapCenter = MapPoint(lat: _userLocation.lat, long: _userLocation.long);
       });
 
+  void _renderMapWidget() async {
+    GeolocationStatus permission =
+        await Geolocator().checkGeolocationPermissionStatus();
+    setState(
+      () {
+        _mapWidget = getMapIfHasUserLocation(
+          permission,
+          _userLocation,
+          _controller,
+          _mapWidget,
+          _addLocationListener,
+        );
+      },
+    );
+  }
+
+  void _addLocationListener() async {
+    GeolocationStatus permission =
+        await Geolocator().checkGeolocationPermissionStatus();
+    if (permission == GeolocationStatus.granted) {
+      Geolocator()
+          .getPositionStream(
+            LocationOptions(
+                accuracy: LocationAccuracy.high, distanceFilter: 10),
+          )
+          .listen(_setUserLocation);
+    }
+  }
+
   List<Widget> _generateMapPageBody() {
     List<Widget> mapPageBody = [
       Container(
         child: Expanded(
-          child: GoogleMap(
-            myLocationEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(_userLocation.latitude, _userLocation.longitude),
-              zoom: 15,
-            ),
-            onMapCreated: (GoogleMapController controller) {
-              _controller = Completer();
-              _controller.complete(controller);
-            },
-            onTap: (data) => print(data),
-          ),
+          child: _mapWidget,
         ),
       )
     ];
@@ -96,6 +113,7 @@ class _MapPage extends State<MapPage> {
     setState(() {
       _userLocation = userPosition;
     });
+    _renderMapWidget();
   }
 
   @override
