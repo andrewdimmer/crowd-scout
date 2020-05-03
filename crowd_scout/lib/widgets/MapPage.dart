@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/elements/getMapIfHasUserLocation.dart';
 import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
@@ -45,10 +44,27 @@ class _MapPage extends State<MapPage> {
     }
   }
 
-  void _setPoi(newPoi) => setState(() {
-        _poi = newPoi;
-        //_mapCenter = MapPoint(lat: _userLocation.lat, long: _userLocation.long);
-      });
+  void _setPoi(GoogleMapsPoi newPoi) async {
+    setState(() {
+      _poi = newPoi;
+    });
+    Future.delayed(Duration(milliseconds: 500), () async {
+      try {
+        GoogleMapController controller = await _controller.future;
+        print(_poi.location);
+        controller.moveCamera(
+          CameraUpdate.newCameraPosition((_poi != null)
+              ? CameraPosition(target: _poi.location, zoom: 17)
+              : CameraPosition(
+                  target:
+                      LatLng(_userLocation.latitude, _userLocation.longitude),
+                  zoom: 17)),
+        );
+      } catch (err) {
+        print("Map not initialized yet...");
+      }
+    });
+  }
 
   void _renderMapWidget() async {
     GeolocationStatus permission =
@@ -56,12 +72,13 @@ class _MapPage extends State<MapPage> {
     setState(
       () {
         _mapWidget = getMapIfHasUserLocation(
-          permission,
-          _userLocation,
-          _controller,
-          _mapWidget,
-          _addLocationListener,
-        );
+            permission,
+            _userLocation,
+            _controller,
+            _mapWidget,
+            _addLocationListener,
+            (_poi != null) ? _poi.location : null,
+            _setController);
       },
     );
   }
@@ -72,6 +89,11 @@ class _MapPage extends State<MapPage> {
           LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10),
         )
         .listen(_setUserLocation);
+  }
+
+  void _setController(GoogleMapController controller) {
+    _controller = Completer();
+    _controller.complete(controller);
   }
 
   List<Widget> _generateMapPageBody() {

@@ -12,20 +12,23 @@ Widget getMapIfHasUserLocation(
   Completer<GoogleMapController> controllerPointer,
   Widget mapWidgetPointer,
   Function refreshPermissions,
+  LatLng poiLocation,
+  Function setController,
 ) =>
     (permission == GeolocationStatus.granted)
-        ? position != null
+        ? (position != null)
             ? (controllerPointer != null)
                 ? mapWidgetPointer
                 : GoogleMap(
                     myLocationEnabled: true,
                     initialCameraPosition: CameraPosition(
-                      target: LatLng(position.latitude, position.longitude),
-                      zoom: 15,
+                      target: (poiLocation != null)
+                          ? poiLocation
+                          : LatLng(position.latitude, position.longitude),
+                      zoom: 17,
                     ),
                     onMapCreated: (GoogleMapController controller) {
-                      controllerPointer = Completer();
-                      controllerPointer.complete(controller);
+                      setController(controller);
                     },
                     onTap: (data) async {
                       print(data);
