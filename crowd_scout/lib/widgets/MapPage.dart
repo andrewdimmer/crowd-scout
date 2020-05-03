@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'package:crowd_scout/elements/PoiNameBar.dart';
+
 import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/elements/poiCapacityBar.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
+import 'package:crowd_scout/widgets/PoiNameBar.dart';
 import 'package:crowd_scout/widgets/SearchPage.dart';
+import 'package:crowd_scout/widgets/poiCapacityBar.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -30,10 +32,10 @@ class _MapPage extends State<MapPage> {
   }
 
   bool _searching = false;
-  Position _userLocation = null;
+  Position _userLocation;
   MapPoint _mapCenter;
-  MapPoint _poi =
-      MapPoint(lat: 0, long: 0, name: "Test Name", address: "Test Address");
+  MapPoint _poi;
+  // MapPoint(lat: 0, long: 0, name: "Test Name", address: "Test Address");
   Completer<GoogleMapController> _controller;
 
   void _toggleSearch() => setState(() {

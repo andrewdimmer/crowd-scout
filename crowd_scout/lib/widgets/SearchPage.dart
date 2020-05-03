@@ -1,6 +1,7 @@
 import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/elements/PoiSearchResultItem.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
+import 'package:crowd_scout/widgets/PoiSearchResultItem.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
