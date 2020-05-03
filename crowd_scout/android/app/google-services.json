@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "660086786716",
+    "firebase_url": "https://tohacks2020-gcp.firebaseio.com",
+    "project_id": "tohacks2020-gcp",
+    "storage_bucket": "tohacks2020-gcp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660086786716:android:2f11396a9c121ddc0f3b59",
+        "android_client_info": {
+          "package_name": "com.example.hackathon.crowd_scout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660086786716-e8gvicg6kgbvrdriae3apa84e2g8utmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hackathon.crowd_scout",
+            "certificate_hash": "d0f0348db8cf80c96756429e900db24297c9978f"
+          }
+        },
+        {
+          "client_id": "660086786716-pp4gm5uo45pbne4o9ue6083rd87k2gdn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLtk119Mp2qG2Czmi5hvCDrcQjm2AzGL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660086786716-pp4gm5uo45pbne4o9ue6083rd87k2gdn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

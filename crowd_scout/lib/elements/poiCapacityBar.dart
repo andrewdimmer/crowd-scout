@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/widgets/ChangeCapacityPage.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
   _PoiCapacityBar(MapPoint poiMapPoint) {
     _poiMapPoint = poiMapPoint;
     _getCrowdInformation(true);
+    Firestore.instance.collection("PLACEHOLDER").getDocuments().then((value) =>
+        print("Firestore Test Successful: " + value.documents.toString()));
   }
 
   MapPoint _poiMapPoint;

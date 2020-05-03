@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>660086786716-l5l07vcvitmt5gocvfn4bckqj7g9ra44.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.660086786716-l5l07vcvitmt5gocvfn4bckqj7g9ra44</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>660086786716-e8gvicg6kgbvrdriae3apa84e2g8utmi.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA8pICPbshZfeMuJ67NTBWFQmzhJpHFAqo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>660086786716</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.hackathon.crowdScout</string>
+	<key>PROJECT_ID</key>
+	<string>tohacks2020-gcp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tohacks2020-gcp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:660086786716:ios:1d82772b0f2c347a0f3b59</string>
+	<key>DATABASE_URL</key>
+	<string>https://tohacks2020-gcp.firebaseio.com</string>
+</dict>
+</plist>

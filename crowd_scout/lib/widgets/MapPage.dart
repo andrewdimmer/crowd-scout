@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'package:crowd_scout/elements/PoiNameBar.dart';
 import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/elements/poiCapacityBar.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:crowd_scout/widgets/SearchPage.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
   MapPage({Key key, this.title}) : super(key: key);
@@ -17,11 +20,21 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPage extends State<MapPage> {
+  _MapPage() {
+    print("Adding Listener");
+    Geolocator()
+        .getPositionStream(
+          LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10),
+        )
+        .listen(_setUserLocation);
+  }
+
   bool _searching = false;
-  MapPoint _userLocation;
+  Position _userLocation = null;
   MapPoint _mapCenter;
   MapPoint _poi =
       MapPoint(lat: 0, long: 0, name: "Test Name", address: "Test Address");
+  Completer<GoogleMapController> _controller;
 
   void _toggleSearch() => setState(() {
         _searching = !_searching;
@@ -36,7 +49,18 @@ class _MapPage extends State<MapPage> {
     List<Widget> mapPageBody = [
       Container(
         child: Expanded(
-          child: Text("Map"),
+          child: GoogleMap(
+            myLocationEnabled: true,
+            initialCameraPosition: CameraPosition(
+              target: LatLng(_userLocation.latitude, _userLocation.longitude),
+              zoom: 15,
+            ),
+            onMapCreated: (GoogleMapController controller) {
+              _controller = Completer();
+              _controller.complete(controller);
+            },
+            onTap: (data) => print(data),
+          ),
         ),
       )
     ];
@@ -65,6 +89,12 @@ class _MapPage extends State<MapPage> {
         );
         _toggleSearch();
       };
+
+  void _setUserLocation(Position userPosition) {
+    setState(() {
+      _userLocation = userPosition;
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(

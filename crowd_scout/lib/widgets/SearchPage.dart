@@ -2,6 +2,7 @@ import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/elements/PoiSearchResultItem.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key, this.title, this.initialSearchString, this.setPoi})
@@ -39,7 +40,8 @@ class _SearchPage extends State<SearchPage> {
         _initialSearchString = input;
       });
     }
-    // Run Async Function Here
+    var testResults = await http.get("https://flutter.dev");
+    print(testResults.body.toString());
     Future<List<MapPoint>> results = Future.delayed(
         Duration(seconds: 2),
         () => [

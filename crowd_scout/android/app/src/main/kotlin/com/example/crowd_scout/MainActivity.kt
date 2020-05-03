@@ -1,4 +1,4 @@
-package com.example.crowd_scout
+package com.example.hackathon.crowd_scout
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity
