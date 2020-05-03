@@ -1,6 +1,5 @@
-import 'package:crowd_scout/widgets/MapPage.dart';
+import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:flutter/material.dart';
-import 'MapPoint.dart';
 
 class PoiSearchResultItem extends StatelessWidget {
   PoiSearchResultItem({Key key, this.poiMapPoint, this.setPoi})
