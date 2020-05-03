@@ -36,16 +36,11 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
     });
   }
 
-  void _updateLocalCapacity(String newCapacity) => setState(() {
-        _capacity = newCapacity;
-      });
-
-  void openUpdateCapacity() => Navigator.push(
+  void _openUpdateCapacity() => Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ChangeCapacityPage(
             poiInfo: _poiInfo,
-            updateLocalCapacity: _updateLocalCapacity,
           ),
         ),
       );
@@ -65,7 +60,7 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
                         child:
                             Text("Know the capacity? Update the max capacity!"),
                         color: Theme.of(context).primaryColorDark,
-                        onPressed: openUpdateCapacity,
+                        onPressed: _openUpdateCapacity,
                       )
                     ],
                     alignment: MainAxisAlignment.center,

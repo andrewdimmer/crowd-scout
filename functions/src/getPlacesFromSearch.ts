@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import { get } from "request-promise-native";
-// import * as ky from "ky";
+// import * as ky from "ky"; //TODO: Figure out wky ky is not working for the future.
 
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
