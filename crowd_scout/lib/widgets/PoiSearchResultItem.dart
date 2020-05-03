@@ -1,15 +1,14 @@
-import 'package:crowd_scout/elements/MapPoint.dart';
+import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:flutter/material.dart';
 
 class PoiSearchResultItem extends StatelessWidget {
-  PoiSearchResultItem({Key key, this.poiMapPoint, this.setPoi})
-      : super(key: key);
+  PoiSearchResultItem({Key key, this.poiInfo, this.setPoi}) : super(key: key);
 
-  final MapPoint poiMapPoint;
+  final GoogleMapsPoi poiInfo;
   final Function setPoi;
 
-  Function _onTapFactory(context) => () {
-        setPoi(poiMapPoint);
+  Function _onTapFactory(BuildContext context) => () {
+        setPoi(poiInfo);
         Navigator.pop(context);
       };
 
@@ -17,8 +16,8 @@ class PoiSearchResultItem extends StatelessWidget {
         child: Card(
           child: Column(
             children: <Widget>[
-              Text(poiMapPoint.name),
-              Text(poiMapPoint.address),
+              Text(poiInfo.name),
+              Text(poiInfo.formattedAddress),
             ],
           ),
         ),

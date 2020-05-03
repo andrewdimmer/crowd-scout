@@ -4,6 +4,7 @@ import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 
 Widget getMapIfHasUserLocation(
   GeolocationStatus permission,
@@ -23,11 +24,15 @@ Widget getMapIfHasUserLocation(
                       zoom: 15,
                     ),
                     onMapCreated: (GoogleMapController controller) {
-                      print(DateTime.now().toString() + " Rendering map...");
                       controllerPointer = Completer();
                       controllerPointer.complete(controller);
                     },
-                    onTap: (data) => print(data),
+                    onTap: (data) async {
+                      print(data);
+                      http.Response response = await http.get(
+                          "https://us-central1-tohacks2020-gcp.cloudfunctions.net/helloWorld");
+                      print(response.body);
+                    },
                   )
             : loadingWheelAndMessage("Loading Location...")
         : Column(

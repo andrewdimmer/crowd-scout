@@ -1,27 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crowd_scout/elements/MapPoint.dart';
+import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:crowd_scout/widgets/ChangeCapacityPage.dart';
 import 'package:flutter/material.dart';
 
 class PoiCapacityBar extends StatefulWidget {
-  PoiCapacityBar({Key key, this.poiMapPoint}) : super(key: key);
+  PoiCapacityBar({Key key, this.poiInfo}) : super(key: key);
 
-  final MapPoint poiMapPoint;
+  final GoogleMapsPoi poiInfo;
 
   @override
-  State<StatefulWidget> createState() => _PoiCapacityBar(poiMapPoint);
+  State<StatefulWidget> createState() => _PoiCapacityBar(poiInfo);
 }
 
 class _PoiCapacityBar extends State<PoiCapacityBar> {
-  _PoiCapacityBar(MapPoint poiMapPoint) {
-    _poiMapPoint = poiMapPoint;
+  _PoiCapacityBar(GoogleMapsPoi poiInfo) {
+    _poiInfo = poiInfo;
     _getCrowdInformation(true);
     Firestore.instance.collection("PLACEHOLDER").getDocuments().then((value) =>
         print("Firestore Test Successful: " + value.documents.toString()));
   }
 
-  MapPoint _poiMapPoint;
+  GoogleMapsPoi _poiInfo;
   bool _busyLoading = true;
   int _crowd;
   int _capacity;
@@ -50,7 +50,7 @@ class _PoiCapacityBar extends State<PoiCapacityBar> {
         context,
         MaterialPageRoute(
           builder: (context) => ChangeCapacityPage(
-            poiMapPoint: _poiMapPoint,
+            poiInfo: _poiInfo,
             updateLocalCapacity: _updateLocalCapacity,
           ),
         ),
