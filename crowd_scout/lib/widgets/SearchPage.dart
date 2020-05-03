@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
@@ -85,7 +84,7 @@ class _SearchPage extends State<SearchPage> {
               item["geometry"]["location"]["lng"],
             )))
         .toList();
-    setSearchResults(await results);
+    setSearchResults(results);
   }
 
   void setSearchResults(List<GoogleMapsPoi> results) {
