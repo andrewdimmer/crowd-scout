@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:crowd_scout/elements/MapPoint.dart';
 import 'package:crowd_scout/elements/getMapIfHasUserLocation.dart';
+import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:crowd_scout/widgets/PoiNameBar.dart';
@@ -31,15 +32,18 @@ class _MapPage extends State<MapPage> {
 
   bool _searching = false;
   Position _userLocation;
-  MapPoint _mapCenter;
-  MapPoint _poi;
-  // MapPoint(lat: 0, long: 0, name: "Test Name", address: "Test Address");
+  GoogleMapsPoi _poi;
   Completer<GoogleMapController> _controller;
   Widget _mapWidget = loadingWheelAndMessage("Initalizing...");
 
-  void _toggleSearch() => setState(() {
+  void _toggleSearch() {
+    print(_userLocation);
+    if (_userLocation != null) {
+      setState(() {
         _searching = !_searching;
       });
+    }
+  }
 
   void _setPoi(newPoi) => setState(() {
         _poi = newPoi;
@@ -62,17 +66,12 @@ class _MapPage extends State<MapPage> {
     );
   }
 
-  void _addLocationListener() async {
-    GeolocationStatus permission =
-        await Geolocator().checkGeolocationPermissionStatus();
-    if (permission == GeolocationStatus.granted) {
-      Geolocator()
-          .getPositionStream(
-            LocationOptions(
-                accuracy: LocationAccuracy.high, distanceFilter: 10),
-          )
-          .listen(_setUserLocation);
-    }
+  void _addLocationListener() {
+    Geolocator()
+        .getPositionStream(
+          LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10),
+        )
+        .listen(_setUserLocation);
   }
 
   List<Widget> _generateMapPageBody() {
@@ -87,11 +86,11 @@ class _MapPage extends State<MapPage> {
       mapPageBody.insert(
         0,
         PoiNameBar(
-          poiMapPoint: _poi,
+          poiInfo: _poi,
           onClose: () => _setPoi(null),
         ),
       );
-      mapPageBody.add(PoiCapacityBar(poiMapPoint: _poi));
+      mapPageBody.add(PoiCapacityBar(poiInfo: _poi));
     }
     return mapPageBody;
   }
@@ -101,9 +100,11 @@ class _MapPage extends State<MapPage> {
           context,
           MaterialPageRoute(
             builder: (context) => SearchPage(
-                title: "Search Page",
-                initialSearchString: input,
-                setPoi: _setPoi),
+              title: "Search Page",
+              initialSearchString: input,
+              setPoi: _setPoi,
+              userLocation: _userLocation,
+            ),
           ),
         );
         _toggleSearch();

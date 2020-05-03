@@ -1,17 +1,28 @@
+import 'dart:convert';
+
 import 'package:crowd_scout/elements/MapPoint.dart';
+import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:crowd_scout/elements/loadingWheelAndMessage.dart';
 import 'package:crowd_scout/elements/searchAppbar.dart';
 import 'package:crowd_scout/widgets/PoiSearchResultItem.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key key, this.title, this.initialSearchString, this.setPoi})
+  SearchPage(
+      {Key key,
+      this.title,
+      this.initialSearchString,
+      this.setPoi,
+      this.userLocation})
       : super(key: key);
 
   final String title;
   final String initialSearchString;
   final Function setPoi;
+  final Position userLocation;
 
   @override
   State<StatefulWidget> createState() =>
@@ -41,33 +52,47 @@ class _SearchPage extends State<SearchPage> {
         _initialSearchString = input;
       });
     }
-    var testResults = await http.get("https://flutter.dev");
-    print(testResults.body.toString());
-    Future<List<MapPoint>> results = Future.delayed(
-        Duration(seconds: 2),
-        () => [
-              MapPoint(
-                name: input + " " + 1.toString(),
-                address: input + ", City, State 0000" + 1.toString(),
-              ),
-              MapPoint(
-                name: input + " " + 2.toString(),
-                address: input + ", City, State 0000" + 2.toString(),
-              ),
-              MapPoint(
-                name: input + " " + 3.toString(),
-                address: input + ", City, State 0000" + 3.toString(),
-              ),
-            ]);
+    http.Response response = await http.get(
+        "https://us-central1-tohacks2020-gcp.cloudfunctions.net/helloWorld");
+    print(response.body.toString());
+    http.Response testResults = await http.post(
+        "https://us-central1-tohacks2020-gcp.cloudfunctions.net/get_places_from_search",
+        body: widget.userLocation.latitude.toString() +
+            ";" +
+            widget.userLocation.longitude.toString() +
+            ";" +
+            input);
+    var locations = jsonDecode(testResults.body);
+    print(locations);
+    List<GoogleMapsPoi> results = locations["candidates"]
+        .map<GoogleMapsPoi>((item) => GoogleMapsPoi(
+            businessStatus: item["business_status"],
+            formattedAddress: item["formatted_address"],
+            name: item["name"],
+            types:
+                item["types"].map<String>((item) => item.toString()).toList(),
+            icon: item["icon"],
+            placeId: item["place_id"],
+            photos: item["photos"]
+                .map<GoogleMapsPoiPhoto>((photo) => GoogleMapsPoiPhoto(
+                      height: item["height"],
+                      width: item["width"],
+                      photoReference: item["photo_reference"],
+                    ))
+                .toList(),
+            location: LatLng(
+              item["geometry"]["location"]["lat"],
+              item["geometry"]["location"]["lng"],
+            )))
+        .toList();
     setSearchResults(await results);
   }
 
-  void setSearchResults(List<MapPoint> results) {
+  void setSearchResults(List<GoogleMapsPoi> results) {
     List<Widget> newSearchResults = [Center(child: Text("Results"))];
     newSearchResults.addAll(
       results.map(
-        (mapPoint) =>
-            PoiSearchResultItem(poiMapPoint: mapPoint, setPoi: _setPoi),
+        (poiInfo) => PoiSearchResultItem(poiInfo: poiInfo, setPoi: _setPoi),
       ),
     );
     setState(() {

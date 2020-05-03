@@ -1,11 +1,10 @@
-import 'package:crowd_scout/elements/MapPoint.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:flutter/material.dart';
 
 class PoiNameBar extends StatelessWidget {
-  PoiNameBar({Key key, this.poiMapPoint, this.onClose}) : super(key: key);
+  PoiNameBar({Key key, this.poiInfo, this.onClose}) : super(key: key);
 
-  final MapPoint poiMapPoint;
+  final GoogleMapsPoi poiInfo;
   final Function onClose;
 
   Widget build(BuildContext context) => Container(
@@ -14,8 +13,8 @@ class PoiNameBar extends StatelessWidget {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  Text(poiMapPoint.name),
-                  Text(poiMapPoint.address)
+                  Text(poiInfo.name),
+                  Text(poiInfo.formattedAddress)
                 ],
               ),
             ),

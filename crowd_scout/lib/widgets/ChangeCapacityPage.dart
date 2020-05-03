@@ -1,11 +1,11 @@
-import 'package:crowd_scout/elements/MapPoint.dart';
+import 'package:crowd_scout/elements/googleMapsPoi.dart';
 import 'package:flutter/material.dart';
 
 class ChangeCapacityPage extends StatelessWidget {
-  ChangeCapacityPage({Key key, this.poiMapPoint, this.updateLocalCapacity})
+  ChangeCapacityPage({Key key, this.poiInfo, this.updateLocalCapacity})
       : super(key: key);
 
-  final MapPoint poiMapPoint;
+  final GoogleMapsPoi poiInfo;
   final Function updateLocalCapacity;
 
   Function _onSubmitFactory(BuildContext context) => (String input) {
@@ -20,7 +20,7 @@ class ChangeCapacityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text("Update Capacity for " + poiMapPoint.name)),
+        appBar: AppBar(title: Text("Update Capacity for " + poiInfo.name)),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
