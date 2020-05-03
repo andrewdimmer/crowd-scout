@@ -51,7 +51,6 @@ class _MapPage extends State<MapPage> {
     Future.delayed(Duration(milliseconds: 500), () async {
       try {
         GoogleMapController controller = await _controller.future;
-        print(_poi.location);
         controller.moveCamera(
           CameraUpdate.newCameraPosition((_poi != null)
               ? CameraPosition(target: _poi.location, zoom: 17)
@@ -72,13 +71,15 @@ class _MapPage extends State<MapPage> {
     setState(
       () {
         _mapWidget = getMapIfHasUserLocation(
-            permission,
-            _userLocation,
-            _controller,
-            _mapWidget,
-            _addLocationListener,
-            (_poi != null) ? _poi.location : null,
-            _setController);
+          permission,
+          _userLocation,
+          _controller,
+          _mapWidget,
+          _addLocationListener,
+          (_poi != null) ? _poi.location : null,
+          _setController,
+          _setPoi,
+        );
       },
     );
   }
