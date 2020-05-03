@@ -14,11 +14,20 @@ class PoiSearchResultItem extends StatelessWidget {
 
   Widget build(BuildContext context) => GestureDetector(
         child: Card(
-          child: Column(
-            children: <Widget>[
-              Text(poiInfo.name),
-              Text(poiInfo.formattedAddress),
-            ],
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  poiInfo.name,
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                Text(
+                  poiInfo.formattedAddress,
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.all(8.0),
           ),
         ),
         onTap: _onTapFactory(context),

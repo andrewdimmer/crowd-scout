@@ -88,7 +88,9 @@ class _SearchPage extends State<SearchPage> {
   }
 
   void setSearchResults(List<GoogleMapsPoi> results) {
-    List<Widget> newSearchResults = [Center(child: Text("Results"))];
+    List<Widget> newSearchResults = [
+      Center(child: Text("Results", style: TextStyle(fontSize: 18)))
+    ];
     newSearchResults.addAll(
       results.map(
         (poiInfo) => PoiSearchResultItem(poiInfo: poiInfo, setPoi: _setPoi),
@@ -109,9 +111,12 @@ class _SearchPage extends State<SearchPage> {
             defaultSearchString: _initialSearchString),
         body: _busySearching
             ? loadingWheelAndMessage("Searching...")
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: _searchResults,
+            : Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: _searchResults,
+                ),
+                padding: EdgeInsets.all(8.0),
               ),
       );
 }

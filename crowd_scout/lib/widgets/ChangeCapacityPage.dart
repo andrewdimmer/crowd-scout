@@ -24,18 +24,20 @@ class ChangeCapacityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text("Update Capacity for " + poiInfo.name)),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text("Update capacity"),
-            TextField(
-              autofocus: true,
-              cursorColor: Theme.of(context).primaryColor,
-              decoration: InputDecoration(hintText: "Enter a new capacity"),
-              keyboardType: TextInputType.number,
-              onSubmitted: _onSubmitFactory(context),
-            )
-          ],
-        ),
+        body: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text("Update capacity", style: TextStyle(fontSize: 24.0)),
+                TextField(
+                  autofocus: true,
+                  cursorColor: Theme.of(context).primaryColor,
+                  decoration: InputDecoration(hintText: "Enter a new capacity"),
+                  keyboardType: TextInputType.number,
+                  onSubmitted: _onSubmitFactory(context),
+                )
+              ],
+            ),
+            padding: EdgeInsets.all(16.0)),
       );
 }
